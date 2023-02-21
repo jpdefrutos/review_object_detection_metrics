@@ -14,6 +14,8 @@ def main(args) -> None:
     Args:
         args: Arguments to pass to QApplication
     """
+    if not isinstance(args, list):
+        args = list(args)
     app = QtWidgets.QApplication(args)
 
     ui = Main_Dialog()

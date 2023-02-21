@@ -2,7 +2,7 @@ import os
 
 import rodm.utils.converter as converter
 import rodm.utils.general_utils as general_utils
-from PySide2 import tWidgets
+from PySide2 import QtWidgets
 from PySide2.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 from rodm.evaluators.coco_evaluator import get_coco_summary
 from rodm.evaluators.pascal_voc_evaluator import (get_pascalvoc_metrics, plot_precision_recall_curve,

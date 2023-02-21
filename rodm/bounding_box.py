@@ -3,7 +3,7 @@ from math import isclose
 from rodm.utils.general_utils import (convert_to_absolute_values,
                                       convert_to_relative_values)
 
-from .utils.enumerators import BBFormat, BBType, CoordinatesType
+from rodm.utils.enumerators import BBFormat, BBType, CoordinatesType
 
 
 class BoundingBox:

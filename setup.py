@@ -1,4 +1,10 @@
 from setuptools import find_packages, setup
+import os
+
+scripts = ['scripts/rodm']
+
+if os.name == 'nt':
+    scripts.append('scripts/rodm.bat')
 
 setup(
     name='rodm',
@@ -21,5 +27,6 @@ setup(
         'python-dotenv>=0.15.0',
         'pyyaml>=5.3.1',
         'sphinx>=3.3.1'
-        ]
+        ],
+    scripts=['scripts/rodm'],
 )

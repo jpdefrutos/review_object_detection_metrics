@@ -2,9 +2,11 @@ from setuptools import find_packages, setup
 import os
 
 scripts = ['scripts/rodm']
+entry_points = {'gui_scripts': ['rodm=rodm.main:main']}
 
 if os.name == 'nt':
     scripts.append('scripts/rodm.bat')
+    entry_points.update({'console_scripts': ['rodm=rodm.main:main']})
 
 setup(
     name='rodm',
@@ -28,5 +30,6 @@ setup(
         'pyyaml>=5.3.1',
         'sphinx>=3.3.1'
         ],
-    scripts=['scripts/rodm'],
+    # scripts=['scripts/rodm'],
+    entry_points=entry_points,
 )

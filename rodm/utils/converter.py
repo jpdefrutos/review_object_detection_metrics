@@ -4,10 +4,10 @@ import os
 import xml.etree.ElementTree as ET
 
 import pandas as pd
-import src.utils.general_utils as general_utils
-import src.utils.validations as validations
-from src.bounding_box import BoundingBox
-from src.utils.enumerators import BBFormat, BBType, CoordinatesType
+import rodm.utils.general_utils as general_utils
+import rodm.utils.validations as validations
+from rodm.bounding_box import BoundingBox
+from rodm.utils.enumerators import BBFormat, BBType, CoordinatesType
 
 
 def _get_annotation_files(file_path):

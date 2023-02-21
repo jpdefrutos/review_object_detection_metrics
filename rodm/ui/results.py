@@ -3,9 +3,9 @@ import random
 
 import cv2
 import matplotlib.pyplot as plt
-from PyQt5.QtWidgets import QFileDialog, QMainWindow
-from src.bounding_box import BoundingBox
-from src.ui.results_ui import Ui_Form_results as Results_UI
+from PySide2.QtWidgets import QMainWindow
+from rodm.bounding_box import BoundingBox
+from rodm.ui.results_ui import Ui_Form_results as Results_UI
 
 
 class Results_Dialog(QMainWindow, Results_UI):

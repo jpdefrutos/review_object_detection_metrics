@@ -5,9 +5,9 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from src.bounding_box import BoundingBox
-from src.utils.enumerators import (BBFormat, CoordinatesType,
-                                   MethodAveragePrecision)
+from rodm.bounding_box import BoundingBox
+from rodm.utils.enumerators import (BBFormat, CoordinatesType,
+                                    MethodAveragePrecision)
 
 
 def calculate_ap_every_point(rec, prec):

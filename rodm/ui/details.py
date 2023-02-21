@@ -3,14 +3,14 @@ import random
 
 import cv2
 import matplotlib.pyplot as plt
-from PyQt5.QtWidgets import QFileDialog, QMainWindow
-from src.bounding_box import BoundingBox
-from src.ui.details_ui import Ui_Dialog as Details_UI
-from src.utils import general_utils
-from src.utils.enumerators import BBType
-from src.utils.general_utils import (add_bb_into_image, get_files_dir,
-                                     remove_file_extension,
-                                     show_image_in_qt_component)
+from PySide2.QtWidgets import QFileDialog, QMainWindow
+from rodm.bounding_box import BoundingBox
+from rodm.ui.details_ui import Ui_Dialog as Details_UI
+from rodm.utils import general_utils
+from rodm.utils.enumerators import BBType
+from rodm.utils.general_utils import (add_bb_into_image, get_files_dir,
+                                      remove_file_extension,
+                                      show_image_in_qt_component)
 
 
 class Details_Dialog(QMainWindow, Details_UI):

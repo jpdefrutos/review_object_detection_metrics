@@ -311,10 +311,10 @@ For detection with STT, use a .json file following format:
 ```
 See [example annotation](https://github.com/rafaelpadilla/review_object_detection_metrics/blob/main/tests/tube/example_anno.json)  and [example predictions](https://github.com/rafaelpadilla/review_object_detection_metrics/blob/main/tests/tube/example_preds.json) for examples of annotation and prediction .json files.
 
-##### Running  
+##### Running
 
 ```python
-from src.evaluators.tube_evaluator import TubeEvaluator
+from rodm.evaluators.tube_evaluator import TubeEvaluator
 
 tube_evaluator = TubeEvaluator(annot_filepath, preds_filepath)
 res, mAP = tube_evaluator.evaluate(thr=0.5)

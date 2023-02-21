@@ -2,13 +2,13 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-import src.evaluators.coco_evaluator as coco_evaluator
-import src.evaluators.pascal_voc_evaluator as pascal_voc_evaluator
-import src.utils.converter as converter
-import src.utils.general_utils as general_utils
-from src.bounding_box import BoundingBox
-from src.utils.enumerators import (BBFormat, BBType, CoordinatesType,
-                                   MethodAveragePrecision)
+import rodm.evaluators.coco_evaluator as coco_evaluator
+import rodm.evaluators.pascal_voc_evaluator as pascal_voc_evaluator
+import rodm.utils.converter as converter
+import rodm.utils.general_utils as general_utils
+from rodm.bounding_box import BoundingBox
+from rodm.utils.enumerators import (BBFormat, BBType, CoordinatesType,
+                                    MethodAveragePrecision)
 
 #############################################################
 # DEFINE GROUNDTRUTHS AND DETECTIONS

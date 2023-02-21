@@ -3,7 +3,7 @@
 
 import sys
 
-from PyQt5 import QtWidgets
+from PySide2 import QtWidgets
 from rodm.ui.run_ui import Main_Dialog
 from rodm.ui.splash import Splash_Dialog
 

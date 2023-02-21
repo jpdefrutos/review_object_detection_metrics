@@ -1,6 +1,6 @@
 # Execute this script with the command below to open the GUI
 # python run.py
-
+import os
 import sys
 
 from PySide2 import QtWidgets
@@ -8,7 +8,7 @@ from rodm.ui.run_ui import Main_Dialog
 from rodm.ui.splash import Splash_Dialog
 
 
-def main(args) -> None:
+def main(args: list = [os.path.join(os.getcwd(), __name__)]) -> None:
     """
     Main entry point to rodm tool
     Args:

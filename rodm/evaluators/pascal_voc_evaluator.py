@@ -8,6 +8,7 @@ import pandas as pd
 from rodm.bounding_box import BoundingBox
 from rodm.utils.enumerators import (BBFormat, CoordinatesType,
                                     MethodAveragePrecision)
+import logging
 
 
 def calculate_ap_every_point(rec, prec):
@@ -130,7 +131,7 @@ def get_pascalvoc_metrics(gt_boxes,
         detected_gt_per_image = Counter([bb.get_image_name() for bb in gt_boxes])
         for key, val in detected_gt_per_image.items():
             detected_gt_per_image[key] = np.zeros(val)
-        # print(f'Evaluating class: {c}')
+        # logging.info(f'Evaluating class: {c}')
         dict_table = {
             'image': [],
             'confidence': [],
@@ -155,7 +156,7 @@ def get_pascalvoc_metrics(gt_boxes,
             iouMax = sys.float_info.min
             # Given the detection det, find ground-truth with the highest iou
             for j, g in enumerate(gt):
-                # print('Ground truth gt => %s' %
+                # logging.info('Ground truth gt => %s' %
                 #       str(g.get_absolute_bounding_box(format=BBFormat.XYX2Y2)))
                 iou = BoundingBox.iou(det, g)
                 if iou > iouMax:
@@ -168,7 +169,7 @@ def get_pascalvoc_metrics(gt_boxes,
                     TP[idx_det] = 1  # detection is set as true positive
                     detected_gt_per_image[img_det][
                         id_match_gt] = 1  # set flag to identify gt as already 'matched'
-                    # print("TP")
+                    # logging.info("TP")
                     if generate_table:
                         dict_table['TP'].append(1)
                         dict_table['FP'].append(0)
@@ -177,14 +178,14 @@ def get_pascalvoc_metrics(gt_boxes,
                     if generate_table:
                         dict_table['FP'].append(1)
                         dict_table['TP'].append(0)
-                    # print("FP")
+                    # logging.info("FP")
             # - A detected "cat" is overlaped with a GT "cat" with IOU >= iou_threshold.
             else:
                 FP[idx_det] = 1  # detection is set as false positive
                 if generate_table:
                     dict_table['FP'].append(1)
                     dict_table['TP'].append(0)
-                # print("FP")
+                # logging.info("FP")
         # compute precision, recall and average precision
         acc_FP = np.cumsum(FP)
         acc_TP = np.cumsum(TP)

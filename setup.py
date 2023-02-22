@@ -8,11 +8,16 @@ if os.name == 'nt':
 
 setup(
     name='rodm',
+    py_modules=['rodm'],
     packages=find_packages(include=['rodm', 'rodm.*']),
     version='0.1.0',
     description='Object Detection Metrics Open-source Toolkit',
     author='Rafael Padilla',
-    license='MIT',
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent'
+    ],
     python_requires='>=3.9',
     install_requires=[
         'matplotlib',

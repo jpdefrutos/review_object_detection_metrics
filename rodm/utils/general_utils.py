@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PySide2 import QtCore, QtGui
 from rodm.utils.enumerators import BBFormat
+import logging
 
 
 def get_classes_from_txt_file(filepath_classes_det):
@@ -22,14 +23,14 @@ def replace_id_with_classes(bounding_boxes, filepath_classes_det):
     classes = get_classes_from_txt_file(filepath_classes_det)
     for bb in bounding_boxes:
         if not is_str_int(bb.get_class_id()):
-            print(
-                f'Warning: Class id represented in the {filepath_classes_det} is not a valid integer.'
+            logging.warning(
+                f'Class id represented in the {filepath_classes_det} is not a valid integer.'
             )
             return bounding_boxes
         class_id = int(bb.get_class_id())
         if class_id not in range(len(classes)):
-            print(
-                f'Warning: Class id {class_id} is not in the range of classes specified in the file {filepath_classes_det}.'
+            logging.warning(
+                f'Class id {class_id} is not in the range of classes specified in the file {filepath_classes_det}.'
             )
             return bounding_boxes
         bb._class_id = classes[class_id]
@@ -207,11 +208,11 @@ def find_image_file(directory, file_name):
 
 def get_image_resolution(image_file):
     if image_file is None or not os.path.isfile(image_file):
-        print(f'Warning: Path {image_file} not found.')
+        logging.warning(f'Path {image_file} not found.')
         return None
     img = cv2.imread(image_file)
     if img is None:
-        print(f'Warning: Error loading the image {image_file}.')
+        logging.warning(f'Error loading the image {image_file}.')
         return None
     h, w, _ = img.shape
     return {'height': h, 'width': w}

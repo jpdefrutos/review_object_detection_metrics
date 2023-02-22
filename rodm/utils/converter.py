@@ -8,6 +8,7 @@ import rodm.utils.general_utils as general_utils
 import rodm.utils.validations as validations
 from rodm.bounding_box import BoundingBox
 from rodm.utils.enumerators import BBFormat, BBType, CoordinatesType
+import logging
 
 
 def _get_annotation_files(file_path):
@@ -58,7 +59,7 @@ def coco2bb(path, bb_type=BBType.GROUND_TRUTH):
             img_id = annotation['image_id']
             x1, y1, bb_width, bb_height = annotation['bbox']
             if bb_type == BBType.DETECTED and 'score' not in annotation.keys():
-                print('Warning: Confidence not found in the JSON file!')
+                logging.warning('Confidence not found in the JSON file!')
                 return ret
             confidence = annotation['score'] if bb_type == BBType.DETECTED else None
             # Make image name only the filename, without extension
@@ -129,7 +130,7 @@ def openimage2bb(annotations_path, images_dir, bb_type=BBType.GROUND_TRUTH):
                 image_file = general_utils.find_file(images_dir, img_name)
                 images_shapes[image_file] = general_utils.get_image_resolution(image_file)
             if images_shapes[image_file] is None:
-                print(f'Warning: It was not possible to find the resolution of image {img_name}')
+                logging.warning(f'It was not possible to find the resolution of image {img_name}')
                 continue
             # Three is no bounding box for the given image
             if pd.isna(row['LabelName']) or pd.isna(row['XMin']) or pd.isna(row['XMax']) or pd.isna(
@@ -145,7 +146,7 @@ def openimage2bb(annotations_path, images_dir, bb_type=BBType.GROUND_TRUTH):
             x1, x2, y1, y2 = float(x1), float(x2), float(y1), float(y2)
             confidence = None if pd.isna(row['Confidence']) else float(row['Confidence'])
             if bb_type == BBType.DETECTED and confidence is None:
-                print(f'Warning: Confidence value found in the CSV file for the image {img_name}')
+                logging.warning(f'Confidence value found in the CSV file for the image {img_name}')
                 return ret
             bb = BoundingBox(image_name=general_utils.get_file_name_only(row['ImageID']),
                              class_id=row['LabelName'],
@@ -268,8 +269,8 @@ def text2bb(annotations_path,
             if type_coordinates == CoordinatesType.RELATIVE:
                 img_path = general_utils.find_image_file(img_dir, img_filename + file_suffix)
                 if img_path is None or os.path.isfile(img_path) is False:
-                    print(
-                        f'Warning: Image not found in the directory {img_path}. It is required to get its dimensions'
+                    logging.warning(
+                        f'Image not found in the directory {img_path}. It is required to get its dimensions'
                     )
                     return ret
                 resolution = general_utils.get_image_resolution(img_path)
@@ -311,7 +312,7 @@ def text2bb(annotations_path,
 def yolo2bb(annotations_path, images_dir, file_obj_names, bb_type=BBType.GROUND_TRUTH):
     ret = []
     if not os.path.isfile(file_obj_names):
-        print(f'Warning: File with names of classes {file_obj_names} not found.')
+        logging.warning(f'File with names of classes {file_obj_names} not found.')
         return ret
     # Load classes
     all_classes = []
@@ -327,7 +328,7 @@ def yolo2bb(annotations_path, images_dir, file_obj_names, bb_type=BBType.GROUND_
         img_file = general_utils.find_image_file(images_dir, img_name)
         img_resolution = general_utils.get_image_resolution(img_file)
         if img_resolution is None:
-            print(f'Warning: It was not possible to find the resolution of image {img_name}')
+            logging.warning(f'It was not possible to find the resolution of image {img_name}')
             continue
         img_size = (img_resolution['width'], img_resolution['height'])
         # Loop through lines
@@ -338,13 +339,13 @@ def yolo2bb(annotations_path, images_dir, file_obj_names, bb_type=BBType.GROUND_
                 splitted_line = line.split(' ')
                 class_id = splitted_line[0]
                 if not general_utils.is_str_int(class_id):
-                    print(
-                        f'Warning: Class id represented in the {file_path} is not a valid integer.')
+                    logging.warning(
+                        f'Class id represented in the {file_path} is not a valid integer.')
                     return []
                 class_id = int(class_id)
                 if class_id not in range(len(all_classes)):
-                    print(
-                        f'Warning: Class id represented in the {file_path} is not in the range of classes specified in the file {file_obj_names}.'
+                    logging.warning(
+                        f'Class id represented in the {file_path} is not in the range of classes specified in the file {file_obj_names}.'
                     )
                     return []
                 if bb_type == BBType.GROUND_TRUTH:
@@ -463,5 +464,5 @@ def df2labelme(symbolDict, dir_image):
         converted_json = json.loads(symbolDict.to_json(orient='records'))[0]
     except Exception as e:
         converted_json = {}
-        print('error in labelme conversion:{}'.format(e))
+        logging.error('Error in labelme conversion:{}'.format(e))
     return converted_json

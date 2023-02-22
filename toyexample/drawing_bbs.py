@@ -7,6 +7,8 @@ import rodm.utils.converter as converter
 import rodm.utils.general_utils as general_utils
 from rodm.bounding_box import BoundingBox
 from rodm.utils.enumerators import BBFormat, BBType, CoordinatesType
+import logging
+
 
 dir_imgs = 'toyexample/images'
 dir_gts = 'toyexample/gts_vocpascal_format'
@@ -78,8 +80,8 @@ for img_file in general_utils.get_files_recursively(dir_imgs):
         bb._x2 = min(bb._x2, img_w-3)
         image = draw_bb_into_image(image, bb, green_color, thickness=6, label=bb.get_class_id())
     for bb in det_bbs:
-        print(f'{bb._image_name}: {bb._confidence}')
-        print(f'{bb._image_name}')
+        logging.info(f'{bb._image_name}: {bb._confidence}')
+        logging.info(f'{bb._image_name}')
         bb._y = max(bb._y, 3)
         bb._y2 = min(bb._y2, img_h-3)
         bb._x2 = min(bb._x2, img_w-3)

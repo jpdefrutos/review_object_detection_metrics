@@ -207,15 +207,27 @@ Based on these definitions, the proposed STT-AP metric follows the AP.
 
 ### Requirements
 
-We highly suggest you to create an [anaconda](https://docs.anaconda.com/anaconda/install/) environment using the `environment.yml` file available in this repository. To create the environment and install all necessary packages, run the following command:
+#### [Anaconda](https://docs.anaconda.com/anaconda/install/) environment
+To create the environment and install all necessary packages, run the following command:
 
 `conda env create -n <env_name> --file environment.yml`  
 
-Now activate the evironment: `conda activate <env_name>`  
+Now activate the environment: `conda activate <env_name>`  
 
 Install the tool: `python setup.py install`  
 
 Run the UI: `python run.py`  
+
+#### PyPi (Pip install)
+NOTE: pip package release soon
+
+In the meantime, you can install the package by cloning it to your mahcine:
+
+```
+cd <location of the cloned repository>
+pip install -e .
+``` 
+
 
 ### Running
 

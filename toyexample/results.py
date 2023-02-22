@@ -27,16 +27,16 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 # Leave only annotations of cats
 # gt_bbs = [bb for bb in gt_bbs if bb.get_class_id() == 'cat']
 # det_bbs = [bb for bb in det_bbs if bb.get_class_id() == 'cat']
+#
+# dir_imgs = '/home/rafael/Downloads/testando/JPEGImages'
+# dir_gts = '/home/rafael/Downloads/testando/gts'
+# dir_dets = '/home/rafael/Downloads/testando/dets'
+# filepath_yolo_names = '/home/rafael/Downloads/testando/coco.names'
 
-dir_imgs = '/home/rafael/Downloads/testando/JPEGImages'
-dir_gts = '/home/rafael/Downloads/testando/gts'
-dir_dets = '/home/rafael/Downloads/testando/dets'
-filepath_yolo_names = '/home/rafael/Downloads/testando/coco.names'
-
-dir_imgs = '/home/rafael/thesis/review_object_detection_metrics/toyexample/images'
-dir_gts = '/home/rafael/thesis/review_object_detection_metrics/toyexample/gts_vocpascal_format'
-dir_dets = '/home/rafael/thesis/review_object_detection_metrics/toyexample/dets_yolo_format'
-filepath_yolo_names = '/home/rafael/thesis/review_object_detection_metrics/toyexample/voc.names'
+dir_imgs = os.path.join(os.getcwd(), 'images')
+dir_gts = os.path.join(os.getcwd(), 'gts_vocpascal_format')
+dir_dets = os.path.join(os.getcwd(), 'dets_yolo_format')
+filepath_yolo_names = os.path.join(os.getcwd(), 'voc.names')
 
 
 # gt_bbs = converter.vocpascal2bb(dir_gts)

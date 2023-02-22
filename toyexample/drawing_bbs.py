@@ -10,10 +10,11 @@ from rodm.utils.enumerators import BBFormat, BBType, CoordinatesType
 import logging
 
 
-dir_imgs = 'toyexample/images'
-dir_gts = 'toyexample/gts_vocpascal_format'
-dir_dets = 'toyexample/dets_classname_abs_xywh'
-dir_outputs = 'toyexample/images_with_bbs'
+dir_imgs = os.path.join(os.getcwd(), 'images')
+dir_gts = os.path.join(os.getcwd(), 'gts_vocpascal_format')
+dir_dets = os.path.join(os.getcwd(), 'dets_classname_abs_xywh')
+dir_outputs = os.path.join(os.getcwd(), 'images_with_bbs')
+
 
 def draw_bb_into_image(image, bounding_box, color, thickness, label=None):
     if isinstance(image, str):

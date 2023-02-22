@@ -9,14 +9,15 @@ import rodm.utils.general_utils as general_utils
 from rodm.bounding_box import BoundingBox
 from rodm.utils.enumerators import (BBFormat, BBType, CoordinatesType,
                                     MethodAveragePrecision)
+import os
 
 #############################################################
 # DEFINE GROUNDTRUTHS AND DETECTIONS
 #############################################################
-dir_imgs = 'toyexample/images'
-dir_gts = 'toyexample/gts_vocpascal_format'
-dir_dets = 'toyexample/dets_classname_abs_xywh'
-dir_outputs = 'toyexample/images_with_bbs'
+dir_imgs = os.path.join(os.getcwd(), 'images')
+dir_gts = os.path.join(os.getcwd(), 'gts_vocpascal_format')
+dir_dets = os.path.join(os.getcwd(), 'dets_classname_abs_xywh')
+dir_outputs = os.path.join(os.getcwd(), 'images_with_bbs')
 
 def plot_bb_per_classes(dict_bbs_per_class,
                         horizontally=True,

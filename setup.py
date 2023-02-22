@@ -13,6 +13,7 @@ setup(
     description='Object Detection Metrics Open-source Toolkit',
     author='Rafael Padilla',
     license='MIT',
+    python_requires='>=3.9',
     install_requires=[
         'matplotlib',
         'numpy>=1.19',

@@ -7,11 +7,13 @@ from math import isclose
 import rodm.utils.converter as converter
 from rodm.evaluators.pascal_voc_evaluator import get_pascalvoc_metrics
 from rodm.utils.enumerators import BBType, MethodAveragePrecision
+import os
+from tests.test_paths import TEST_CASE_1
 
 
 def test_case_1():
-    gts_dir = 'tests/test_case_1/gts'
-    dets_dir = 'tests/test_case_1/dets'
+    gts_dir = os.path.join(TEST_CASE_1, 'gts')
+    dets_dir = os.path.join(TEST_CASE_1, 'dets')
 
     gts = converter.text2bb(gts_dir, BBType.GROUND_TRUTH)
     dets = converter.text2bb(dets_dir, BBType.DETECTED)
@@ -38,3 +40,7 @@ def test_case_1():
         results = results_dict['per_class']
         for c, res in results.items():
             assert isclose(expected_APs[c][iou], res['AP'])
+
+
+if __name__ == '__main__':
+    test_case_1()

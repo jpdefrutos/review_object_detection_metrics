@@ -4,12 +4,12 @@ import rodm.utils.converter as converter
 import rodm.utils.general_utils as general_utils
 import rodm.utils.validations as validations
 from rodm.utils.enumerators import BBFormat, BBType, CoordinatesType
-
+from tests.test_paths import DATA_DATABASE, TOY_EXAMPLE
 
 def test_converters_gts():
     # Defining paths with images and annotations
-    images_dir = 'data/database/images'
-    gts_dir = 'data/database/gts'
+    images_dir = os.path.join(DATA_DATABASE, 'images')
+    gts_dir = os.path.join(DATA_DATABASE, 'gts')
     assert os.path.isdir(images_dir)
     assert os.path.isdir(gts_dir)
 
@@ -42,8 +42,8 @@ def test_converters_gts():
     vocpascal_bbs = converter.vocpascal2bb(vocpascal_dir)
     vocpascal_bbs.sort(key=lambda x: str(x), reverse=True)
     # YOLO
-    yolo_annotations_dir = os.path.join(gts_dir, 'yolo_format/obj_train_data')
-    yolo_names_file = os.path.join(gts_dir, 'yolo_format/obj.names')
+    yolo_annotations_dir = os.path.join(gts_dir, 'yolo_format', 'obj_train_data')
+    yolo_names_file = os.path.join(gts_dir, 'yolo_format', 'obj.names')
     yolo_bbs = converter.yolo2bb(yolo_annotations_dir,
                                  images_dir,
                                  yolo_names_file,
@@ -61,42 +61,42 @@ def test_converters_gts():
 
 def test_converters_dets():
     # Defining paths with images and annotations
-    images_dir = 'data/database/images'
-    gts_dir = 'data/database/dets'
+    images_dir = os.path.join(DATA_DATABASE, 'images')
+    dets_dir = os.path.join(DATA_DATABASE, 'dets')
     assert os.path.isdir(images_dir)
-    assert os.path.isdir(gts_dir)
+    assert os.path.isdir(dets_dir)
 
     # COCO
-    coco_dir = os.path.join(gts_dir, 'coco_format_v1')
+    coco_dir = os.path.join(dets_dir, 'coco_format_v1')
     coco_bbs_v1 = converter.coco2bb(coco_dir)
     coco_bbs_v1.sort(key=lambda x: str(x), reverse=True)
     # COCO
-    coco_dir = os.path.join(gts_dir, 'coco_format_v2')
+    coco_dir = os.path.join(dets_dir, 'coco_format_v2')
     coco_bbs_v2 = converter.coco2bb(coco_dir)
     coco_bbs_v2.sort(key=lambda x: str(x), reverse=True)
     # CVAT
-    cvat_dir = os.path.join(gts_dir, 'cvat_format')
+    cvat_dir = os.path.join(dets_dir, 'cvat_format')
     cvat_bbs = converter.cvat2bb(cvat_dir)
     cvat_bbs.sort(key=lambda x: str(x), reverse=True)
     # IMAGENET
-    imagenet_dir = os.path.join(gts_dir, 'imagenet_format/Annotations')
+    imagenet_dir = os.path.join(dets_dir, 'imagenet_format', 'Annotations')
     imagenet_bbs = converter.imagenet2bb(imagenet_dir)
     imagenet_bbs.sort(key=lambda x: str(x), reverse=True)
     # LABEL ME
-    labelme_dir = os.path.join(gts_dir, 'labelme_format')
+    labelme_dir = os.path.join(dets_dir, 'labelme_format')
     labelme_bbs = converter.labelme2bb(labelme_dir)
     labelme_bbs.sort(key=lambda x: str(x), reverse=True)
     # OPEN IMAGE
-    openimage_dir = os.path.join(gts_dir, 'openimages_format')
+    openimage_dir = os.path.join(dets_dir, 'openimages_format')
     openimage_bbs = converter.openimage2bb(openimage_dir, images_dir)
     openimage_bbs.sort(key=lambda x: str(x), reverse=True)
     # VOC PASCAL
-    vocpascal_dir = os.path.join(gts_dir, 'pascalvoc_format')
+    vocpascal_dir = os.path.join(dets_dir, 'pascalvoc_format')
     vocpascal_bbs = converter.vocpascal2bb(vocpascal_dir)
     vocpascal_bbs.sort(key=lambda x: str(x), reverse=True)
     # YOLO
-    yolo_annotations_dir = os.path.join(gts_dir, 'yolo_format/obj_train_data')
-    yolo_names_file = os.path.join(gts_dir, 'yolo_format/obj.names')
+    yolo_annotations_dir = os.path.join(dets_dir, 'yolo_format', 'obj_train_data')
+    yolo_names_file = os.path.join(dets_dir, 'yolo_format', 'obj.names')
     yolo_bbs = converter.yolo2bb(yolo_annotations_dir,
                                  images_dir,
                                  yolo_names_file,
@@ -113,7 +113,7 @@ def test_converters_dets():
 
 
 def test_toy_example_dets():
-    dir_annots_dets = 'toyexample/dets_classid_rel_xcycwh'
+    dir_annots_dets = os.path.join(TOY_EXAMPLE, 'dets_classid_rel_xcycwh')
 
     yolo_files = general_utils.get_files_recursively(dir_annots_dets)
     assert len(yolo_files) > 0
@@ -123,10 +123,10 @@ def test_toy_example_dets():
 
 def test_toy_example_dets_compatibility():
     # Checks if all different formats in the toyexample represent the same coordinates
-    dir_img_dir = 'toyexample/images'
-    filepath_classes_det = 'toyexample/voc.names'
+    dir_img_dir = os.path.join(TOY_EXAMPLE, 'images')
+    filepath_classes_det = os.path.join(TOY_EXAMPLE, 'voc.names')
 
-    dir_dets_classid_abs_xywh = 'toyexample/dets_classid_abs_xywh'
+    dir_dets_classid_abs_xywh = os.path.join(TOY_EXAMPLE, 'dets_classid_abs_xywh')
     dets_classid_abs_xywh = converter.text2bb(dir_dets_classid_abs_xywh,
                                               bb_type=BBType.DETECTED,
                                               bb_format=BBFormat.XYWH,
@@ -135,7 +135,7 @@ def test_toy_example_dets_compatibility():
                                                                   filepath_classes_det)
     dets_classid_abs_xywh.sort(key=lambda x: str(x), reverse=True)
 
-    dir_dets_classid_abs_xyx2y2 = 'toyexample/dets_classid_abs_xyx2y2'
+    dir_dets_classid_abs_xyx2y2 = os.path.join(TOY_EXAMPLE, 'dets_classid_abs_xyx2y2')
     dets_classid_abs_xyx2y2 = converter.text2bb(dir_dets_classid_abs_xyx2y2,
                                                 bb_type=BBType.DETECTED,
                                                 bb_format=BBFormat.XYX2Y2,
@@ -144,7 +144,7 @@ def test_toy_example_dets_compatibility():
                                                                     filepath_classes_det)
     dets_classid_abs_xyx2y2.sort(key=lambda x: str(x), reverse=True)
 
-    dir_dets_classid_rel_xcycwh = 'toyexample/dets_classid_rel_xcycwh'
+    dir_dets_classid_rel_xcycwh = os.path.join(TOY_EXAMPLE, 'dets_classid_rel_xcycwh')
     dets_classid_rel_xcycwh = converter.text2bb(dir_dets_classid_rel_xcycwh,
                                                 bb_type=BBType.DETECTED,
                                                 bb_format=BBFormat.YOLO,
@@ -154,21 +154,21 @@ def test_toy_example_dets_compatibility():
                                                                     filepath_classes_det)
     dets_classid_rel_xcycwh.sort(key=lambda x: str(x), reverse=True)
 
-    dir_dets_classname_abs_xywh = 'toyexample/dets_classname_abs_xywh'
+    dir_dets_classname_abs_xywh = os.path.join(TOY_EXAMPLE, 'dets_classname_abs_xywh')
     dets_classname_abs_xywh = converter.text2bb(dir_dets_classname_abs_xywh,
                                                 bb_type=BBType.DETECTED,
                                                 bb_format=BBFormat.XYWH,
                                                 type_coordinates=CoordinatesType.ABSOLUTE)
     dets_classname_abs_xywh.sort(key=lambda x: str(x), reverse=True)
 
-    dir_dets_classname_abs_xyx2y2 = 'toyexample/dets_classname_abs_xyx2y2'
+    dir_dets_classname_abs_xyx2y2 = os.path.join(TOY_EXAMPLE, 'dets_classname_abs_xyx2y2')
     dets_classname_abs_xyx2y2 = converter.text2bb(dir_dets_classname_abs_xyx2y2,
                                                   bb_type=BBType.DETECTED,
                                                   bb_format=BBFormat.XYX2Y2,
                                                   type_coordinates=CoordinatesType.ABSOLUTE)
     dets_classname_abs_xyx2y2.sort(key=lambda x: str(x), reverse=True)
 
-    dir_dets_classname_rel_xcycwh = 'toyexample/dets_classname_rel_xcycwh'
+    dir_dets_classname_rel_xcycwh = os.path.join(TOY_EXAMPLE, 'dets_classname_rel_xcycwh')
     dets_classname_rel_xcycwh = converter.text2bb(dir_dets_classname_rel_xcycwh,
                                                   bb_type=BBType.DETECTED,
                                                   bb_format=BBFormat.YOLO,
@@ -176,7 +176,7 @@ def test_toy_example_dets_compatibility():
                                                   img_dir=dir_img_dir)
     dets_classname_rel_xcycwh.sort(key=lambda x: str(x), reverse=True)
 
-    dir_dets_coco_format = 'toyexample/dets_coco_format'
+    dir_dets_coco_format = os.path.join(TOY_EXAMPLE, 'dets_coco_format')
     dets_coco_format = converter.coco2bb(dir_dets_coco_format, bb_type=BBType.DETECTED)
     dets_coco_format.sort(key=lambda x: str(x), reverse=True)
 
@@ -193,7 +193,7 @@ def test_toy_example_gts():
     ############################################################################
 
     # PASCAL VOC
-    dir_annots_gts_pascal = 'toyexample/gts_vocpascal_format'
+    dir_annots_gts_pascal = os.path.join(TOY_EXAMPLE, 'gts_vocpascal_format')
     files = general_utils.get_files_recursively(dir_annots_gts_pascal)
     assert len(files) > 0
     for f in files:
@@ -201,7 +201,7 @@ def test_toy_example_gts():
             f), 'File {f} does not follow the expected format (PASCAL VOC)'
 
     # COCO
-    dir_annots_gts_coco = 'toyexample/gts_coco_format'
+    dir_annots_gts_coco = os.path.join(TOY_EXAMPLE, 'gts_coco_format')
     files = general_utils.get_files_recursively(dir_annots_gts_coco)
     assert len(files) > 0
     for f in files:
@@ -220,3 +220,10 @@ def test_toy_example_gts():
 
     for coco_bb, pascal_bb in zip(coco_bbs, pascal_bbs):
         assert coco_bb == pascal_bb
+
+
+if __name__ == '__main__':
+    test_toy_example_gts()
+    test_toy_example_dets()
+    test_converters_gts()
+    test_converters_dets()
